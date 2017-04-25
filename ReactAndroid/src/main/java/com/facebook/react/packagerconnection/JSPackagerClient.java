@@ -8,19 +8,16 @@
 
 package com.facebook.react.packagerconnection;
 
-import java.util.Map;
-
 import android.net.Uri;
 
 import com.facebook.common.logging.FLog;
 import com.facebook.react.modules.systeminfo.AndroidInfoHelpers;
 
-import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
-import okhttp3.WebSocket;
-import okio.ByteString;
-
 import org.json.JSONObject;
+
+import java.util.Map;
+
+import okio.ByteString;
 
 /**
  * A client for packager that uses WebSocket connection.
