@@ -2,6 +2,7 @@
 
 apply plugin: 'com.android.library'
 apply plugin: 'maven'
+apply plugin: 'maven-publish'
 
 apply plugin: 'de.undercouch.download'
 
@@ -271,6 +272,36 @@ android {
     }
 }
 
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId 'com.facebook.react'
+            artifactId 'react-native'
+            version '0.42.3'
+            artifact "$buildDir/outputs/aar/ReactAndroid-release.aar" //aar artifact you want to publish
+
+            // Generate pom nodes for dependencies
+            pom.withXml {
+                def dependenciesNode = asNode().appendNode('dependencies')
+                configurations.compile.allDependencies.each { dependency ->
+                    if (dependency.group) {
+                        def dependencyNode = dependenciesNode.appendNode('dependency')
+                        dependencyNode.appendNode('groupId', dependency.group)
+                        dependencyNode.appendNode('artifactId', dependency.name)
+                        dependencyNode.appendNode('version', dependency.version)
+                    }
+                }
+            }
+        }
+    }
+
+    // Publish to filesystem repo
+    repositories{
+        maven {
+            url "$buildDir/repo"
+        }
+    }
+}
 
 dependencies {
     compile fileTree(dir: 'src/main/third-party/java/infer-annotations/', include: ['*.jar'])
