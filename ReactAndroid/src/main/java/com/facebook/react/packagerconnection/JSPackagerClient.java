@@ -15,6 +15,9 @@ import android.net.Uri;
 import com.facebook.common.logging.FLog;
 import com.facebook.react.modules.systeminfo.AndroidInfoHelpers;
 
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
+import okhttp3.WebSocket;
 import okio.ByteString;
 
 import org.json.JSONObject;
